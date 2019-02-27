@@ -25,7 +25,7 @@ char * new_string_from_integer(int num)
 int main(int argc, char ** argv)
 {
     int num_keys = atoi(argv[1]);
-    int i, value = 0;
+    int i, value = 0, key;
 
     if(argc <= 2)
         return 1;
@@ -76,6 +76,16 @@ int main(int argc, char ** argv)
         before = get_time();
         for(i = 0; i < num_keys; i++)
             DELETE_STR_FROM_HASH(new_string_from_integer(i));
+    }
+
+    else if (!strcmp(argv[2], "gapinsert"))
+    {
+        for(i = 0; i < num_keys; i++)
+        {
+            key = (i << 10) | (i & 1023);
+            INSERT_INT_INTO_HASH(key, value);
+            value++;
+        }
     }
 
     double after = get_time();
